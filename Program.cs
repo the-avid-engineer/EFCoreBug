@@ -32,6 +32,6 @@ using Microsoft.EntityFrameworkCore;
     // This throws ArgumentOutOfRangeException!
 
     dbSet
-        .Where(blog => true)
+        .Where(snapshotReference => true)
         .ExecuteDelete();
 }
