@@ -11,7 +11,7 @@ internal class MyDbContext : DbContext
         var folder = Environment.SpecialFolder.LocalApplicationData;
         var path = Environment.GetFolderPath(folder);
 
-        _dbPath = Path.Join(path, "test.db");
+        _dbPath = Path.Join(path, "test2.db");
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -22,5 +22,6 @@ internal class MyDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfiguration(new SnapshotReferenceTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new SnapshotTypeConfiguration());
     }
 }

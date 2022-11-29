@@ -17,6 +17,19 @@ namespace EFCoreBug.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
 
+            modelBuilder.Entity("EFCoreBug.Snapshot", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<ulong>("VersionNumber")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id", "VersionNumber");
+
+                    b.ToTable("Snapshots", (string)null);
+                });
+
             modelBuilder.Entity("EFCoreBug.SnapshotReference", b =>
                 {
                     b.Property<Guid>("Id")
@@ -29,39 +42,30 @@ namespace EFCoreBug.Migrations
                     b.Property<ulong>("PointerVersionNumber")
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid>("SnapshotId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<ulong>("SnapshotVersionNumber")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasAlternateKey("PointerId", "PointerVersionNumber");
+
+                    b.HasIndex("SnapshotId", "SnapshotVersionNumber");
 
                     b.ToTable("SnapshotReferences", (string)null);
                 });
 
             modelBuilder.Entity("EFCoreBug.SnapshotReference", b =>
                 {
-                    b.OwnsOne("EFCoreBug.Snapshot", "Snapshot", b1 =>
-                        {
-                            b1.Property<Guid>("Id")
-                                .HasColumnType("TEXT");
-
-                            b1.Property<ulong>("VersionNumber")
-                                .HasColumnType("INTEGER");
-
-                            b1.Property<Guid>("SnapshotReferenceId")
-                                .HasColumnType("TEXT");
-
-                            b1.HasKey("Id", "VersionNumber");
-
-                            b1.HasIndex("SnapshotReferenceId")
-                                .IsUnique();
-
-                            b1.ToTable("Snapshots", (string)null);
-
-                            b1.WithOwner()
-                                .HasForeignKey("SnapshotReferenceId");
-                        });
-
-                    b.Navigation("Snapshot")
+                    b.HasOne("EFCoreBug.Snapshot", "Snapshot")
+                        .WithMany()
+                        .HasForeignKey("SnapshotId", "SnapshotVersionNumber")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Snapshot");
                 });
 #pragma warning restore 612, 618
         }

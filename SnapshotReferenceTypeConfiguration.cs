@@ -20,12 +20,13 @@ public class SnapshotReferenceTypeConfiguration : IEntityTypeConfiguration<Snaps
             });
 
         var snapshotBuilder = snapshotReferenceBuilder
-            .OwnsOne(snapshotReference => snapshotReference.Snapshot);
-
-        Configure(snapshotBuilder);
+            .HasOne(snapshotReference => snapshotReference.Snapshot);
     }
+}
 
-    protected virtual void Configure(OwnedNavigationBuilder<SnapshotReference, Snapshot> snapshotBuilder)
+public class SnapshotTypeConfiguration : IEntityTypeConfiguration<Snapshot>
+{
+    public virtual void Configure(EntityTypeBuilder<Snapshot> snapshotBuilder)
     {
         snapshotBuilder.ToTable("Snapshots");
 
