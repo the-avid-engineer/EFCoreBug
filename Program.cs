@@ -12,10 +12,12 @@ using Microsoft.EntityFrameworkCore;
         Id = Guid.NewGuid(),
         PointerId = Guid.NewGuid(),
         PointerVersionNumber = 0,
-        Snapshot = new Snapshot
-        {
-            Id = Guid.NewGuid(),
-            VersionNumber = 1,
+        Snapshots = new[]{
+            new Snapshot
+            {
+                Id = Guid.NewGuid(),
+                VersionNumber = 1,
+            }
         }
     });
 

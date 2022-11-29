@@ -47,8 +47,7 @@ namespace EFCoreBug.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Snapshots_SnapshotReferenceId",
                 table: "Snapshots",
-                column: "SnapshotReferenceId",
-                unique: true);
+                column: "SnapshotReferenceId");
         }
 
         /// <inheritdoc />

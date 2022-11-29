@@ -20,7 +20,7 @@ public class SnapshotReferenceTypeConfiguration : IEntityTypeConfiguration<Snaps
             });
 
         var snapshotBuilder = snapshotReferenceBuilder
-            .OwnsOne(snapshotReference => snapshotReference.Snapshot);
+            .OwnsMany(snapshotReference => snapshotReference.Snapshots);
 
         Configure(snapshotBuilder);
     }

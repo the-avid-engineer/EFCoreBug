@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCoreBug.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20221129012110_InitialCreate")]
+    [Migration("20221129013858_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -41,7 +41,7 @@ namespace EFCoreBug.Migrations
 
             modelBuilder.Entity("EFCoreBug.SnapshotReference", b =>
                 {
-                    b.OwnsOne("EFCoreBug.Snapshot", "Snapshot", b1 =>
+                    b.OwnsMany("EFCoreBug.Snapshot", "Snapshots", b1 =>
                         {
                             b1.Property<Guid>("Id")
                                 .HasColumnType("TEXT");
@@ -54,8 +54,7 @@ namespace EFCoreBug.Migrations
 
                             b1.HasKey("Id", "VersionNumber");
 
-                            b1.HasIndex("SnapshotReferenceId")
-                                .IsUnique();
+                            b1.HasIndex("SnapshotReferenceId");
 
                             b1.ToTable("Snapshots", (string)null);
 
@@ -63,8 +62,7 @@ namespace EFCoreBug.Migrations
                                 .HasForeignKey("SnapshotReferenceId");
                         });
 
-                    b.Navigation("Snapshot")
-                        .IsRequired();
+                    b.Navigation("Snapshots");
                 });
 #pragma warning restore 612, 618
         }

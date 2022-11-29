@@ -8,5 +8,5 @@ public class SnapshotReference
 
     public required ulong PointerVersionNumber { get; init; }
 
-    public required Snapshot Snapshot { get; set; }
+    public required ICollection<Snapshot> Snapshots { get; set; }
 }
